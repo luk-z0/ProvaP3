@@ -1,6 +1,7 @@
 package catchau;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,11 +17,11 @@ public class CadastroCliente {
         Scanner z = new Scanner(System.in);
         int idade;
         Cliente c;
-        String cnh, validade,nome,cpf;
+        String cnh, validade, nome, cpf;
         System.out.println("Digite o nome do cliente: ");
-        nome=z.nextLine();
+        nome = z.nextLine();
         System.out.println("Digite o cpf do cliente: ");
-        cpf=z.next();
+        cpf = z.next();
         do {
             System.out.println("Digite sua idade: ");
             idade = z.nextInt();
@@ -47,7 +48,10 @@ public class CadastroCliente {
                 System.out.println("Digite a validade da sua CNH: ");
                 validade = z.next();
                 c = new Cliente.ClienteBuilder().setNome(nome).setIdade(idade).setCpf(cpf).setCnh(cnh).setValidade(validade).criarCliente();
-                clientes.add(c);
+                clientes.add(c);//Sem Lambda
+                Collections.sort(clientes, (c1, c2) -> {//Com lambda 
+                    return c1.getNome().compareTo(c2.getNome());
+                });
                 cont++;
                 System.out.println("Cadastro realizado com sucesso!");
                 break;
